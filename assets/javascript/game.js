@@ -4,7 +4,6 @@ var compChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "
 // Start all variables at 0 and set max guesses
 var wins = 0;
 var losses = 0;
-var maxGuesses = 9;
 var guessesLeft = 9;
 var lettersUsed = [];
 
@@ -25,36 +24,27 @@ var compChoice = compChoices[Math.floor(Math.random() * compChoices.length)];
 document.onkeyup = function(event) {
     var userChoice = event.key;
 
+// If the user chooses the same letter that the computer chose then reset all counters and add +1 to wins
 if (compChoice === userChoice) {
     wins++;
-    guessesLeft--;
-    lettersUsed.push(userChoice);
-    updateGuessesLeft();
-    updateLettersUsed();
     document.getElementById("numWins").innerHTML= "Wins: " + wins;
-
-        if (guessesLeft > 0) {
-            alert("You're doing great!");
-            reset();
-        }
-        else if (guessesLeft === 0) {
-            alert("Game over!");
-            reset();
-        }
+    reset();
     }
-else {
-    losses++;
+
+// If the user doesn't guess the same letter as the computer keep counting losses and turns until reach 0 or win
+    else {
     guessesLeft--;
     lettersUsed.push(userChoice);
     updateGuessesLeft();
     updateLettersUsed();
-    document.getElementById("numLosses").innerHTML = "Losses: " + losses;
 
         if (guessesLeft > 0) {
             alert("Keep guessing!");
-            reset();
         }
+
         else if (guessesLeft === 0) {
+            losses++;
+            document.getElementById("numLosses").innerHTML = "Losses: " + losses;
             alert("Game over!");
             reset();
         }
@@ -63,7 +53,6 @@ else {
 
 // Reset all actions to keep going
 function reset() {
-    maxGuesses = 9;
     guessesLeft = 9;
     lettersUsed = [];
 };
