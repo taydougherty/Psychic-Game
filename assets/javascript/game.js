@@ -14,7 +14,7 @@ function updateGuessesLeft() {
 
 // Actions to update the letters used in HTML
 function updateLettersUsed() {
-    document.getElementById("lettersGuessedAlready").innerHTML = "Your Guesses So Far: " + lettersUsed.concat(userChoice);
+    document.getElementById("lettersGuessedAlready").innerHTML = "Your Guesses So Far: " + lettersUsed;
 };
 
 // Make computer choose random letter
@@ -31,21 +31,16 @@ if (compChoice === userChoice) {
     reset();
     }
 
-// If the user doesn't guess the same letter as the computer keep counting losses and turns until reach 0 or win
+// If the user doesn't guess the same letter as the computer keep counting turns until reach 0 guesses left or win
     else {
     guessesLeft--;
     lettersUsed.push(userChoice);
     updateGuessesLeft();
     updateLettersUsed();
 
-        if (guessesLeft > 0) {
-            alert("Keep guessing!");
-        }
-
-        else if (guessesLeft === 0) {
+        if (guessesLeft === 0) {
             losses++;
             document.getElementById("numLosses").innerHTML = "Losses: " + losses;
-            alert("Game over!");
             reset();
         }
 }
